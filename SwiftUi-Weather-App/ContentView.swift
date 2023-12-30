@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+ @State var isNightMode = false
+    
     var body: some View {
         ZStack{
-            BackgroundView()
+            BackgroundView(isNightMode: isNightMode)
             VStack{
                 CityNameView(cityName: "Dhaka, Bangladesh")
                
@@ -27,7 +30,7 @@ struct ContentView: View {
                 }
                 Spacer()
                 Button {
-                    print("tapped")
+                    isNightMode.toggle()
                 } label: {
                     Text("Refresh Weather").frame(width: 280,height:60).background(.white).cornerRadius(10).font(.system(size: 18,weight: Font.Weight.bold))
                 }
@@ -46,8 +49,10 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct BackgroundView: View {
+    var  isNightMode: Bool
+    
     var body: some View {
-        LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
+        LinearGradient(colors: [isNightMode ? Color.blue : Color.black, isNightMode ? Color.purple: Color.gray], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
     }
 }
 
